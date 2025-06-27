@@ -37,12 +37,17 @@ console.log("Serving frontend static files from:", path.join(__dirname, "../fron
 
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../frontend/dist")));
+    const frontendPath = join(__dirname, "../../frontend/dist");
+    app.use(express.static(frontendPath));
 
     app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+        res.sendFile(join(frontendPath, "index.html"));
     });
+
+    console.log("Serving frontend static files from:", frontendPath);
 }
+
+
 
 server.listen(PORT, () => {
     console.log("server is running at port: " + PORT);
