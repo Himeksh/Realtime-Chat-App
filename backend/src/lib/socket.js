@@ -2,10 +2,12 @@ import { Server } from "socket.io";
 import http from "http";
 
 const userSocketMap = {}; // { userId: socketId }
+let io; // Declare io here
 
 export function createSocketServer(app) {
     const server = http.createServer(app);
-    const io = new Server(server, {
+
+    io = new Server(server, {
         cors: {
             origin: ["http://localhost:5173"],
         },
@@ -32,3 +34,5 @@ export function createSocketServer(app) {
 export function getReceiverSocketId(userId) {
     return userSocketMap[userId];
 }
+
+export { io }; // ✅ Export io
